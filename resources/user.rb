@@ -2,7 +2,7 @@
 # Cookbook Name:: rabbitmq
 # Resource:: user
 #
-# Copyright 2011, Opscode, Inc.
+# Copyright 2011-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ attribute :user, :kind_of => String, :name_attribute => true
 attribute :password, :kind_of => String
 attribute :vhost, :kind_of => String
 attribute :permissions, :kind_of => String
-attribute :tags, :kind_of => String
+attribute :tag, :kind_of => String
 
 def initialize(*args)
   super

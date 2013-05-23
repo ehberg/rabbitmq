@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rabbitmq_test
-# Recipe:: cook-1684
+# Recipe:: default
 #
 # Copyright 2012, Opscode, Inc. <legal@opscode.com>
 #
@@ -17,10 +17,6 @@
 # limitations under the License.
 #
 
-node.set['rabbitmq']['use_apt'] = false
-node.set['rabbitmq']['use_yum'] = true
+log "#{cookbook_name}::#{recipe_name} tests that COOK-2575 is implemented."
 
-log "#{cookbook_name}::#{recipe_name} tests that COOK-1684 is implemented."
-
-include_recipe "yum::epel" if node['platform_family'] == 'rhel'
-include_recipe "rabbitmq::default"
+include_recipe "rabbitmq::policy_management"

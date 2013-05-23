@@ -1,8 +1,9 @@
 #
-# Cookbook Name:: rabbitmq_test
-# Recipe:: cook-1684
+# Cookbook Name:: rabbitmq
+# Recipe:: policy_management
 #
-# Copyright 2012, Opscode, Inc. <legal@opscode.com>
+# Author: Robert Choi <taeilchoi1@gmail.com>
+# Copyright 2013 by Robert Choi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +18,14 @@
 # limitations under the License.
 #
 
-node.set['rabbitmq']['use_apt'] = false
-node.set['rabbitmq']['use_yum'] = true
-
-log "#{cookbook_name}::#{recipe_name} tests that COOK-1684 is implemented."
-
-include_recipe "yum::epel" if node['platform_family'] == 'rhel'
 include_recipe "rabbitmq::default"
+
+node['rabbitmq']['policies'].each do |name, policy|
+  rabbitmq_policy name do
+    pattern policy['pattern']
+    params policy['params']
+    priority policy['priority']
+    action :set
+    notifies :restart, "service[#{node['rabbitmq']['service_name']}]"
+  end
+end
